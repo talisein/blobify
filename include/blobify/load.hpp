@@ -45,7 +45,10 @@ inline constexpr auto magic_enum_values_v = magic_enum::enum_values<Enum>();
 template<auto member_props, typename Member>
 constexpr decltype(auto) validate_element(Member&& member) {
     if constexpr (member_props->expected_value) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waddress"
         static_assert(member_props->ptr, "expected_value property is set but the pointer-to-member-data could not be inferred. The pointer must be provided manually in this case.");
+#pragma GCC diagnostic pop
 
         if (member != member_props->expected_value) {
             throw unexpected_value_exception<member_props->ptr>(*member_props->expected_value, member);
