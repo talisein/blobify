@@ -12,6 +12,7 @@
 
 #include <magic_enum.hpp>
 
+#include <algorithm>
 #include <cstddef>
 
 namespace blob {
